@@ -401,7 +401,7 @@ public class ChartController {
             updateChartResult.setStatus(StateEnum.SUCCEED.getValue());
             boolean updateResult = chartService.updateById(updateChartResult);
             if (!updateResult) {
-                chartService.handleChartUpdateError(chart.getId(), "更新图表成功状态失败");
+                chartService.handleChartUpdateError(chart.getId(), "更新图表状态失败");
             }
         }, threadPoolExecutor);
         BiResponse biResponse = new BiResponse();
