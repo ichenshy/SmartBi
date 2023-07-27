@@ -3,6 +3,10 @@ package com.chen.Bi.bizmq;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
+
+import javax.annotation.PostConstruct;
 
 /**
  * mq 初始化
@@ -10,8 +14,12 @@ import com.rabbitmq.client.ConnectionFactory;
  * @author CSY
  * @date 2023/06/26
  */
+@Component
+@Slf4j
 public class BiInitMain {
-    public static void main(String[] args) {
+    @PostConstruct
+    void biMqInit() {
+        log.info("Mq管道初始化开始...");
         try {
             ConnectionFactory factory = new ConnectionFactory();
             factory.setHost("localhost");
@@ -27,6 +35,8 @@ public class BiInitMain {
             channel.queueBind(queueName, EXCHANGE_NAME, MY_ROUTINGKEY);
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            log.info("Mq管道初始化结束...");
         }
     }
 }
